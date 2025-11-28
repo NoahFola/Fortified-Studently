@@ -312,3 +312,7 @@ h2 {
   background: linear-gradient(135deg, #4555ff, #b068cf, #3ac7eb);
   background-clip: text;
 }
+
+nextjs-portal {
+  display: none !important;
+}

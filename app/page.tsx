@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Menu,
@@ -30,6 +31,7 @@ import {
   ScrollText,
   ClipboardList,
 } from "lucide-react";
+import Link from "next/link";
 
 // --- Types and Interfaces ---
 
@@ -55,7 +57,7 @@ interface LinkItem {
 // --- Modular Components ---
 
 const Navbar: React.FC = () => (
-  <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm shadow-lg">
+  <header className="fixed top-0 left-0 right-0 z-50 bg-foreground/60 backdrop-blur-sm shadow-lg">
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center max-w-7xl">
       <div className="text-2xl font-bold text-secondary">Studently</div>
       <button className="p-2 rounded-full bg-card hover:bg-card/70 border border-border transition duration-200">
@@ -137,7 +139,7 @@ const HeroSection: React.FC = () => (
           Watch Demo
         </Button>
         <Button variant="primary" icon={<ChevronRight className="w-4 h-4" />}>
-          Get Started
+          <Link href="/dashboard">Get Started</Link>
         </Button>
       </div>
     </div>
@@ -452,7 +454,7 @@ const Footer: React.FC = () => {
 const StudentlyLandingPage: React.FC = () => {
   return (
     // Removed <CustomStyles /> and relied on global CSS and standard/inline Tailwind classes
-    <div className="font-sans antialiased bg-background min-h-screen pt-16">
+    <div className=" bg-background min-h-screen">
       <Navbar />
       <main>
         <HeroSection />

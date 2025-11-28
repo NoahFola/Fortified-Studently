@@ -1,5 +1,5 @@
 import { create } from "zustand";
-
+import { persist } from "zustand/middleware";
 interface UIState {
   darkMode: boolean;
   sidebarOpen: boolean;
@@ -8,11 +8,18 @@ interface UIState {
   toggleSidebar: () => void;
 }
 
-export const useUIStore = create<UIState>((set) => ({
-  darkMode: false,
-  sidebarOpen: true,
+export const useUIStore = create<UIState>()(
+  persist(
+    (set) => ({
+      darkMode: false,
+      sidebarOpen: true,
 
-  toggleDarkMode: () => set((s) => ({ darkMode: !s.darkMode })),
+      toggleDarkMode: () => set((s) => ({ darkMode: !s.darkMode })),
 
-  toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
-}));
+      toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+    }),
+    {
+      name: "studently-ui-store",
+    }
+  )
+);

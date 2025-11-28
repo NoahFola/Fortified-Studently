@@ -1,4 +1,7 @@
 "use client";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, MessageSquare } from "lucide-react";
 import { useChatbotStore } from "@/store/chatbotStore";
@@ -13,7 +16,7 @@ const HIDDEN_BOT_PATHS = [
   "/study/sets/blanks",
   "/study/sets/written",
 ];
-
+const HIDDEN_SIDEBAR_PATHS = ["/"];
 export default function MainLayout({
   children,
 }: {
@@ -26,28 +29,36 @@ export default function MainLayout({
   const isBotAllowed = !HIDDEN_BOT_PATHS.some((path) =>
     pathname.includes(path)
   );
-
+  const isSidebarAllowed = !(pathname === "/");
   return (
     <>
-      <main className={cn("flex min-h-screen", isOpen ? "pr-96" : "pr-0")}>
-        {/* Your main content area */}
-        <RecordingIndicator />
-        <div className="flex-1">{children}</div>
+      {isSidebarAllowed && <AppSidebar />}
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <SidebarTrigger className="-ml-1" />
+          <Header />
+        </header>
 
-        {/* Floating Button to open the bot */}
-        {isBotAllowed && !isOpen && (
-          <Button
-            onClick={toggleBot}
-            size="icon"
-            className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90"
-          >
-            <MessageCircle className="w-6 h-6" />
-          </Button>
-        )}
-      </main>
+        <main className={cn("flex min-h-screen", isOpen ? "pr-96" : "pr-0")}>
+          {/* Your main content area */}
+          <RecordingIndicator />
+          <div className="flex-1">{children}</div>
 
-      {/* The Chatbot Component (passes the current path as context key) */}
-      {isBotAllowed && <StudyBot />}
+          {/* Floating Button to open the bot */}
+          {isBotAllowed && !isOpen && (
+            <Button
+              onClick={toggleBot}
+              size="icon"
+              className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90"
+            >
+              <MessageCircle className="w-6 h-6" />
+            </Button>
+          )}
+        </main>
+
+        {/* The Chatbot Component (passes the current path as context key) */}
+        {isBotAllowed && <StudyBot />}
+      </SidebarInset>
     </>
   );
 }

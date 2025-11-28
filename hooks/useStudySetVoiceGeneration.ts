@@ -44,7 +44,7 @@ export const useStudySetVoiceGeneration = (): UseVoiceGenerationResult => {
 
     const fileContext = MOCK_TRANSCRIPT; // Use mock transcription as context
     // const baseOptions = { model: "gemini-2.5-flash-preview-09-2025" };
-
+    const baseOptions = {};
     try {
       // --- Modular Generation Steps using Mock Context ---
 

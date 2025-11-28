@@ -2,12 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
 import Providers from "@/components/Providers";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import { Header } from "@/components/Header";
 import localFont from "next/font/local";
 import Head from "next/head";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import MainLayout from "@/components/MainLayout";
 
 const monaSans = localFont({
@@ -65,19 +61,11 @@ export default function RootLayout({
         />
       </Head>
 
-      <body className={monaSans.variable}>
+      <body className={`${monaSans.variable} antialiased`}>
         <Providers>
-          <AppSidebar />
-          <SidebarInset>
-            <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-              <SidebarTrigger className="-ml-1" />
-              <Header />
-            </header>
+          {/* <ThemeToggle /> */}
 
-            {/* <ThemeToggle /> */}
-
-            <MainLayout>{children}</MainLayout>
-          </SidebarInset>
+          <MainLayout>{children}</MainLayout>
         </Providers>
       </body>
 
